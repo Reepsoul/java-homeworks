@@ -11,6 +11,11 @@ public class Text {
 	public Text(String text) {
 		setText(text);
 	}
+	
+	//public Text(Text first, Text second) {
+	//	setFirst(first);
+	//	setSecond(second);
+	//}
 
 	public String getText() {
 		return text;

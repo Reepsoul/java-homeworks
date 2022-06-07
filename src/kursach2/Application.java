@@ -120,10 +120,11 @@ public class Application {
 				+ "\n2. Может быть он прав и Лисёнок просто паникует -> Вернуться домой"
 				+ "\n3. Выход в меню\n");
 		System.out.println(text13.getText());
+	
 		
 		text1.setFirst(text2);
 		text1.setSecond(text3);
-		text1.getFirst();
+		System.out.println(text1.getFirst());
 		text1.getSecond();
 		
 		text3.setFirst(text4);
@@ -161,7 +162,7 @@ public class Application {
 		text13.getFirst();
 		text13.getSecond();
 		
-		
+
 		StartGame startGame = new StartGame(new Menu());
 		startGame.execute();
 		startGame.menu.save();
