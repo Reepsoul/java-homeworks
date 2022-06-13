@@ -1,33 +1,21 @@
 package kursach2;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
-public class SaveGame implements Command{
+public class SaveGame extends Menu {
+    private Game gameObject;
+    public SaveGame(Game gameObject){
+        this.gameObject=gameObject;
+    }
+    @Override
+    public void execute() {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(
+                new FileOutputStream(new File("save")))) {
+            outputStream.writeObject(gameObject);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        new StartGame(gameObject).execute();
 
-	Menu menu;
-	
-	public static boolean writeToFile(byte[] text, File file) { // объект нужно передать?
-		boolean result = false;
-		try (FileOutputStream fileOutput = new FileOutputStream(file, true)) {
-			fileOutput.write(text);
-		} catch (FileNotFoundException e) {
-			System.out.println("Не удалось использовать файл");
-		} catch (IOException e) { 
-			System.out.println("Не удалось записать данные в файл");
-		}
-		return result;	
-	}
-	
-	public SaveGame(Menu menu) {
-		this.menu = menu;
-	}
-
-	@Override
-	public void execute() {
-		menu.save();
-	}
-	
+    }
 }

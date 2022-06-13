@@ -1,38 +1,25 @@
 package kursach2;
 
-import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
-public class StartGame implements Command{
+public class StartGame extends Menu {
+	private Game gameObject;
 
-	Menu menu;
-	private Text text; 
-	
-	public StartGame(Menu menu) {
-		this.menu = menu;
-	}
-	
-	@Override
-	public void execute() {
-		menu.start();
-	}
-	
-	
-	
-/*
-	public void startGame() {
-		System.out.println("Выберите пункт"
-				+ "\n1. Начать игру" 
-				+ "\n2. Загрузить игру" 
-				+ "\n3. Выход");
-		Scanner scanner = new Scanner(System.in);
-		int userNum = scanner.nextInt();
-		if (userNum == 1) {
-			Game game = new Game();
-			Text text = new Text();
-			game.setText();
-		}
-		
-	*/	
+
+    public StartGame(Game gameObject) {
+        this.gameObject = gameObject;
+    }
+
+    @Override
+    public void execute() {
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("save"))) {
+            this.gameObject= (Game) inputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        new StartGame(gameObject).execute();
+    }
 }
-	
 
